@@ -18,3 +18,8 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/admin', 'Admin\AdminController@index');
+
+Route::get('/admin/users', 'Admin\UserController@index');
+
+Route::resource('/admin/articles', 'Admin\ArticleController');
