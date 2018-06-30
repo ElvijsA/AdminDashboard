@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\models\Website;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -23,4 +24,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function websites(){
+        return $this->belongsToMany('App\Models\Website', 'website_user', 'user_id', 'website_id')-> withPivot('id');
+    }
+
+    public function website(){
+        return $this->belongsTo('App\Models\Website');
+    }
 }

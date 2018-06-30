@@ -18,8 +18,28 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
-Route::get('/admin', 'Admin\AdminController@index');
 
-Route::get('/admin/users', 'Admin\UserController@index');
+//Check if user logged in
+Route::group(['middleware' => ['auth']], function () {
+    //Set prefix for all routes admin
+    Route::group(array('prefix' => 'admin'), function(){
 
-Route::resource('/admin/articles', 'Admin\ArticleController');
+        //Dashboard routes
+        Route::get('/', 'Admin\AdminController@index');
+
+        //Users
+        Route::resource('/users', 'Admin\UserController');
+        Route::post('/users/websites/store', 'Admin\UserController@addwebsite');
+        Route::post('/users/websites/update/{id}', 'Admin\UserController@addwebsite');
+        Route::post('/users/websites/delete/{user_id}/{website_id}', 'Admin\UserController@deletewebsite');
+        Route::post('/users/websites/update/{user_id}/', 'Admin\UserController@addwebsite');
+        Route::get('/users/websites/swichwebsite/{id}/', 'Admin\UserController@swichwebsite');
+
+        //Websites
+        Route::resource('/websites', 'Admin\WebsiteController');
+
+        //Articles
+        Route::resource('/articles', 'Admin\ArticleController'); 
+
+    });
+});

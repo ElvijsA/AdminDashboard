@@ -1,10 +1,8 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="container-fluid">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">Users</div>
 
                 <div class="panel-body">
@@ -13,8 +11,7 @@
                             <tr>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Created at</th>
-                            <th>Updated at</th>
+                            <th>Current Website</th>
                             <th>Options</th>
                             </tr>
                         </thead>
@@ -23,10 +20,9 @@
                             <tr>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
-                            <td>{{$user->created_at}}</td>
-                            <td>{{$user->updated_at}}</td>
+                            <td>{{$user->website['name']}}</td>
                             <td>
-                                <a class="btn btn-default btn-sm" href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a class="btn btn-default btn-sm" href="{{ URL::route('admin.users.edit', $user->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 <a class="btn btn-default btn-sm" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                             </tr>
@@ -35,7 +31,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+
     </div>
-</div>
+
 @endsection

@@ -5730,6 +5730,30 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+/*
+  * Main navigation
+  */
+.navbar {
+  background-color: #000; }
+
+.navbar-default .navbar-brand {
+  color: #fff; }
+
+.navbar-default .navbar-brand:hover {
+  color: #ccc; }
+
+.navbar-default .navbar-nav > li > a {
+  color: #ccc; }
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: #fff !important; }
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  background-color: #363636; }
+
+/*
+  * Sidebar navigation
+  */
 .sidebar {
   background-color: whitesmoke; }
 
@@ -5770,7 +5794,7 @@ button.close {
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 51px;
+    top: 50px;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -5779,7 +5803,7 @@ button.close {
     overflow-x: hidden;
     overflow-y: auto;
     /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
+    background-color: #363636;
     border-right: 1px solid #eee; } }
 
 /* Sidebar navigation */
@@ -5790,8 +5814,17 @@ button.close {
   margin-left: -20px; }
 
 .nav-sidebar > li > a {
+  color: #ccc;
   padding-right: 20px;
   padding-left: 20px; }
+
+.nav-sidebar > li > a:hover, .nav-sidebar > .open a {
+  color: #333;
+  padding-right: 20px;
+  padding-left: 20px; }
+
+.nav-sidebar > li .fa {
+  margin-right: 10px; }
 
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
@@ -5799,12 +5832,19 @@ button.close {
   color: #fff;
   background-color: #428bca; }
 
+.nav-sidebar li:first-child {
+  border-top: 1px solid #3f3f3f; }
+
+.nav-sidebar li {
+  border-bottom: 1px solid #3f3f3f; }
+
+.dropdown-menu {
+  padding: 0;
+  margin: 0; }
+
 /*
    * Main content
    */
-.main {
-  padding: 20px; }
-
 @media (min-width: 768px) {
   .main {
     padding-right: 40px;
@@ -5829,5 +5869,8 @@ button.close {
 .placeholder img {
   display: inline-block;
   border-radius: 50%; }
+
+.dropdown-menu li a {
+  padding: 10px 20px; }
 
 /*# sourceMappingURL=app.css.map */

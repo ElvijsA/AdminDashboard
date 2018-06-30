@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>{{ env('APP_NAME') }}-{{ env('APP_DESC') }}</title>
 
@@ -14,6 +15,11 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+ 
+
 
     <style>
         body {
@@ -26,7 +32,7 @@
     </style>
 </head>
 <body id="app-layout">
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top" style="border-bottom:2px solid #337AB7;">
         <div class="container-fluid">
             <div class="navbar-header">
 
@@ -56,13 +62,36 @@
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
-                    @else
+                    @else 
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                @if(Auth::user()->website['id'])
+                                {{Auth::user()->website['name']}}<span class="caret"></span>
+                                @else
+                                Website Select <span class="caret"></span>
+                                @endif
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach($websites as $index => $website)
+                                    <li  
+                                    @if(Auth::user()->website['id'] == $website->id)
+                                            style="display:none;"
+                                    @endif
+                                    ><a href="/admin/users/websites/swichwebsite/{{$website->id}}"><i class="fa fa-square" aria-hidden="true"></i> {{$website->name}}
+                                       
+                                    </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('admin/users/edit') }}"><i class="fa fa-btn fa-cog"></i>Edit Profile</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
@@ -77,12 +106,26 @@
             @include('includes.sidebar')
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            @if(Session::has('success-message'))
-                <div class="mws-form-message success">
-                    {{ Session::get('success-message') }}
+                <div class="container-fluid">
+                        
+
+                @if(Session::has('error-message'))
+                <div style="margin-top:50px;">
+                    <div class="alert alert-danger">
+                        {{ Session::get('error-message') }}
+                    </div>
                 </div>
-            @endif
-            @yield('content')
+                @elseif(Session::has('success-message'))
+                <div style="margin-top:50px;">
+                    <div class="alert alert-success">
+                        {{ Session::get('success-message') }}
+                    </div>
+                </div>
+                @endif
+                
+                    
+                @yield('content')
+                </div>
             </div>
         </div>
     </div>

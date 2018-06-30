@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\DashboardController;
 use Auth;
 use App\Models\Article;
 
-class ArticleController extends Controller
+class ArticleController extends DashboardController
 {
     /**
      * Display a listing of the resource.
@@ -43,6 +43,7 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->text = $request->text;
         $article->author_id = Auth::user()->id;
+        $article->website_id = Auth::user()->website->id;
         $article->save();
 
         return redirect('/admin/articles')->with('success-message', 'Article created successfully.');

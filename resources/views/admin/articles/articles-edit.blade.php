@@ -1,10 +1,8 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="container-fluid">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">{{$article->title}} Edit</div>
 
                 <div class="panel-body">
@@ -25,7 +23,7 @@
                             <textarea name="text" class="form-control" rows="3">{{ old('text', $article->text) }}</textarea>
                             </div>
                         </div>
-                        
+
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -35,7 +33,5 @@
                     </form>
                 </div>
             </div>
-        </div>
     </div>
-</div>
 @endsection

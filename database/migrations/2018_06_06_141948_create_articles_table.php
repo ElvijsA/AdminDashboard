@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->text('text');
             $table->integer('author_id');
             $table->integer('edited_by');
+            $table->integer('website_id');
             $table->timestamps();
         });
     }
